@@ -1,0 +1,305 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    /* 🔥 Background same as screenshot */
+    background: #18012c;
+    min-height: 100vh;
+    font-family: 'Inter', sans-serif; /* 🔥 Font updated */
+    color: #FFFFFF;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Container */
+.container {
+    max-width: 1200px;
+    margin: 0px;
+    padding: 2rem;
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 3rem;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.logo-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Units Dropdown */
+.units-dropdown {
+    background: #272742; /* 🔥 matches cards */
+    border: none;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    color: #FFFFFF;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+/* Main Title */
+.main-title {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    color: #FFFFFF; 
+}
+
+.left-column{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+/* Search Bar */
+.search-container {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 3rem;
+}
+
+.search-input {
+    background: #272742;
+    border: none;
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+    color: #FFFFFF;
+    font-size: 1rem;
+    width: 400px;
+}
+
+.search-input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.search-btn {
+    background:#8403f4 ; 
+    border: none;
+    border-radius: 12px;
+    padding: 1rem 2rem;
+    color: #FFFFFF;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.search-btn:hover {
+    background: #43027c; /* lighter indigo hover */
+}
+
+/* Main Weather Card */
+.weather-main {
+    background-image:url('bg-today-large.svg');
+    background-size: cover;
+    border-radius: 20px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    color: #FFFFFF;
+    text-align: center;
+}
+
+.location {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.date {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.weather-display {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.weather-icon {
+    font-size: 3rem;
+}
+
+.temperature {
+    font-size: 3.5rem;
+    font-weight: 700;
+}
+
+/* Content Grid */
+.content-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+}
+
+/* Wind Cards */
+.wind-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.wind-card {
+    background: #272742; /* 🔥 matches screenshot */
+    border-radius: 12px;
+    padding: 1.2rem;
+    text-align: center;
+}
+
+.wind-label {
+    font-size: 0.85rem;
+    opacity: 0.7;
+    margin-bottom: 0.5rem;
+}
+
+.wind-value {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+/* Daily Forecast */
+.daily-forecast {
+    margin-top: 2rem;
+}
+
+.section-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    opacity: 0.9;
+}
+
+.forecast-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1rem;
+}
+
+.forecast-card {
+    background: #272742; /* 🔥 dark cards */
+    border-radius: 12px;
+    padding: 1rem;
+    text-align: center;
+    transition: transform 0.2s;
+}
+
+.forecast-card:hover {
+    transform: translateY(-3px);
+}
+
+.forecast-day {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+}
+
+.forecast-icon {
+    font-size: 1.8rem;
+    margin-bottom: 0.8rem;
+}
+
+.forecast-temp {
+    font-size: 0.85rem;
+}
+
+.forecast-temp .high {
+    font-weight: 600;
+}
+
+.forecast-temp .low {
+    opacity: 0.7;
+    margin-left: 0.5rem;
+}
+
+/* Hourly Forecast */
+.hourly-forecast {
+    background: #272742; /* 🔥 dark right panel */
+    border-radius: 16px;
+    padding: 1.2rem;
+}
+
+.hourly-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.hourly-item:last-child {
+    border-bottom: none;
+}
+
+.hourly-time {
+    font-size: 0.9rem;
+    font-weight: 600;
+    min-width: 60px;
+}
+
+.hourly-icon {
+    font-size: 1.3rem;
+}
+
+.hourly-temp {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 968px) {
+    .content-grid {
+        grid-template-columns: 1fr;
+    }
+    .forecast-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    .wind-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    .main-title {
+        font-size: 2rem;
+    }
+    .search-input {
+        width: 100%;
+    }
+    .weather-main {
+        flex-direction: column;
+        text-align: center;
+        gap: 1.5rem;
+    }
+    .forecast-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .temperature {
+        font-size: 2.8rem;
+    }
+}
