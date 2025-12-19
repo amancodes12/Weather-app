@@ -272,7 +272,8 @@ body {
 }
 
 /* Responsive */
-@media (max-width: 968px) {
+/* Keep 2-column layout on most laptop screens; stack only on tablets/phones */
+@media (max-width: 768px) {
     .content-grid {
         grid-template-columns: 1fr;
     }
