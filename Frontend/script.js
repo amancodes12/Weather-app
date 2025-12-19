@@ -78,82 +78,50 @@ async function getWeatherByCoords(lat, lon) {
 // --------------------------------------------
 
 function updateUI(data) {
+
     let location = data.name;
-    let country = data.sys?.country || '';
     let humidity = data.main.humidity;
     let feelslike = Math.round(data.main.feels_like);
     let temp = Math.round(data.main.temp);
     let wind = data.wind.speed;
-    let precip = data.rain ? data.rain["1h"] : (data.snow ? data.snow["1h"] : 0);
-    let weatherMain = data.weather[0].main.toLowerCase();
-    let weatherIcon = data.weather[0].icon;
+    let precip = data.rain ? data.rain["1h"] : 0;
 
-    // Format location with country
-    let locationText = country ? `${location}, ${country}` : location;
-    document.getElementById("location").innerHTML = locationText;
-
-    // Update main values
+    // ✔ Update Values
+    document.getElementById("location").innerHTML = location;
     document.getElementById("Feelslike").innerHTML = feelslike + "°";
     document.getElementById("Humidity").innerHTML = humidity + "%";
     document.getElementById("temp").innerHTML = temp + "°";
-    
-    // Convert wind speed from m/s to mph (1 m/s = 2.237 mph)
-    let windMph = Math.round(wind * 2.237);
-    document.getElementById("Wind").innerHTML = windMph + " mph";
-    
-    // Convert precipitation from mm to inches (1 mm = 0.0393701 inches)
-    let precipInches = (precip * 0.0393701).toFixed(1);
-    document.getElementById("Precipitation").innerHTML = precipInches + " in";
+    document.getElementById("Wind").innerHTML = wind + " km/h";
+    document.getElementById("Precipitation").innerHTML = precip + " mm";
 
-    // Update weather icon based on condition
-    updateWeatherIcon(weatherMain, weatherIcon);
+    // Daily & hourly dummy values (you can replace later)
+    document.getElementById("windchill").innerHTML = feelslike + "°";
+    document.getElementById("windchill_c").innerHTML = feelslike + "°";
+    document.getElementById("tempf").innerHTML = temp + "°";
+    document.getElementById("temp-l").innerHTML = temp + "°";
+    document.getElementById("mon").innerHTML = wind + "°";
+    document.getElementById("Monday").innerHTML = wind + "°";
+    document.getElementById("tue").innerHTML = humidity + "°";
+    document.getElementById("te").innerHTML = temp + "°";
+    document.getElementById("Wednes").innerHTML = feelslike + "°";
+    document.getElementById("Wed").innerHTML = wind + "°";
+    document.getElementById("fr").innerHTML = temp + "°";
+    document.getElementById("fri").innerHTML = temp + "°";
+    document.getElementById("sa").innerHTML = feelslike + "°";
+    document.getElementById("sat").innerHTML = wind + "°";
 
-    // Hourly forecast (using current temp as placeholder)
+    // Hourly
     document.getElementById("3pm").innerHTML = temp + "°";
     document.getElementById("4pm").innerHTML = temp + "°";
     document.getElementById("5pm").innerHTML = temp + "°";
-    document.getElementById("6pm").innerHTML = (temp - 2) + "°";
-    document.getElementById("7pm").innerHTML = (temp - 2) + "°";
-    document.getElementById("8pm").innerHTML = (temp - 4) + "°";
-    document.getElementById("9pm").innerHTML = (temp - 5) + "°";
-    document.getElementById("10pm").innerHTML = (temp - 5) + "°";
+    document.getElementById("6pm").innerHTML = wind + "°";
+    document.getElementById("7pm").innerHTML = feelslike + "°";
+    document.getElementById("8pm").innerHTML = wind + "°";
+    document.getElementById("9pm").innerHTML = feelslike + "°";
+    document.getElementById("10pm").innerHTML = humidity + "°";
 
-    // Format date like "Tuesday, Aug 5, 2025"
+    // ✔ Correct Date
     let now = new Date();
-    let days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    let months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    let dayName = days[now.getDay()];
-    let monthName = months[now.getMonth()];
-    let day = now.getDate();
-    let year = now.getFullYear();
-    let formattedDate = `${dayName}, ${monthName} ${day}, ${year}`;
-    document.getElementById("dats").innerHTML = formattedDate;
-}
-
-// Function to update weather icon based on condition
-function updateWeatherIcon(weatherMain, weatherIcon) {
-    const iconMap = {
-        'clear': '../Icons/icon-sunny.webp',
-        'clouds': '../Icons/icon-overcast.webp',
-        'rain': '../Icons/icon-rain.webp',
-        'drizzle': '../Icons/icon-drizzle.webp',
-        'thunderstorm': '../Icons/icon-storm.webp',
-        'snow': '../Icons/icon-snow.webp',
-        'mist': '../Icons/icon-fog.webp',
-        'fog': '../Icons/icon-fog.webp',
-        'haze': '../Icons/icon-fog.webp'
-    };
-
-    // Check for partly cloudy
-    let iconPath;
-    if (weatherIcon.includes('02')) {
-        iconPath = '../Icons/icon-partly-cloudy.webp';
-    } else {
-        iconPath = iconMap[weatherMain] || '../Icons/icon-sunny.webp';
-    }
-
-    const iconElement = document.getElementById("weather-icon-main");
-    if (iconElement) {
-        iconElement.src = iconPath;
-    }
+    let fullDate = now.toDateString();  // Example: "Mon Nov 28 2025"
+    document.getElementById("dats").innerHTML = fullDate;
 }

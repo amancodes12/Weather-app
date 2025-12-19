@@ -4,209 +4,217 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Weather Now</title>
-  <link rel="stylesheet" href="../styles.css">
+  <title>Weather Dashboard</title>
+
+  <!-- ✅ Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+
+  <!-- ✅ Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com">
+
+// Configure Tailwind to remove unused styles in production
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        primaryBg: "#0b032d",
+        cardBg: "#1c1f3a",
+        softCard: "#262a4f",
+        accentBlue: "#4f7cff"
+      },
+      borderRadius: {
+        xl2: "18px"
+      }
+    }
+  }
+}
+</script>
+
 </head>
 
-<body>
-  <!-- Header Section -->
-  <header class="header-container">
-    <div class="header-left">
-      <img src="/Icons/logo.svg" alt="Weather Now Logo" class="logo-img">
-      <span class="logo-text">Weather Now</span>
+<body class="bg-gradient-to-br from-[#06051f] via-[#0b032d] to-[#02010f] text-white min-h-screen">
+
+
+  <!-- Navbar -->
+  <ul class="flex flex-wrap justify-between items-center px-10 py-6 bg-gray-800">
+    <li><img src="/Icons/logo.svg" alt="logo" class="h-10"></li>
+    <li class="flex items-center bg-gray-700 px-3 py-2 rounded-md gap-2">
+      <img src="/Icons/icon-units.svg" alt="" class="h-5">
+      <span>Units</span>
+    </li>
+  </ul>
+
+  <!-- Title -->
+  <div class="text-center mt-8 px-3">
+    <p class="text-3xl sm:text-5xl md:text-6xl font-bold">How's the sky looking today?</p>
+  </div>
+
+  <!-- Search -->
+  <div class="flex flex-col sm:flex-row justify-center items-center gap-5 pt-8 px-4">
+    <div class="flex items-center bg-gray-700 rounded-md px-3 py-2 w-full sm:w-2/3 md:w-1/2">
+      <img src="/Icons/icon-search.svg" alt="icon-search" class="h-5 mr-2">
+      <input type="text" id="city" placeholder="Search for a city, e.g., New York"
+        class="w-full bg-transparent outline-none text-white">
     </div>
-    <div class="header-center">
-      <h1 class="main-question">How's the sky looking today?</h1>
-      <div class="search-container">
-        <div class="search-input-wrapper">
-          <img src="/Icons/icon-search.svg" alt="Search" class="search-icon">
-          <input type="text" id="city" placeholder="Search for a place..." class="search-input">
-        </div>
-        <button id="Search" class="search-btn">Search</button>
-      </div>
-    </div>
-    <div class="header-right">
-      <button class="units-btn">
-        <img src="../Icons/icon-units.svg" alt="Units" class="units-icon">
-        <span>Units</span>
-        <img src="../Icons/icon-dropdown.svg" alt="Dropdown" class="dropdown-icon">
-      </button>
-    </div>
-  </header>
+    <button id="Search" class="bg-blue-600 hover:bg-blue-500 px-5 py-2 rounded-md">Search</button>
+  </div>
 
   <!-- Main Container -->
-  <div class="main-container">
-    <div class="content-wrapper">
-      <!-- Left Column -->
-      <div class="left-column">
-        <!-- Main Weather Card -->
-        <div class="weather-main-card">
-          <div class="weather-main-left">
-            <h2 id="location" class="location-name">Berlin, Germany</h2>
-            <p id="dats" class="location-date">Tuesday, Aug 5, 2025</p>
+  <div class="container pt-10">
+    <div class="row g-4">
+      <!-- Left side -->
+      <div class="col-12 col-lg-8">
+        <div class="bg-[url('/Icons/bg-today-large.svg')] bg-no-repeat bg-cover rounded-lg p-5 h-[300px]">
+          <div class="flex flex-wrap justify-between items-center">
+            <p id="location" class="text-3xl font-bold"></p>
+            <div class="flex items-center">
+              <img src="/Icons/icon-sunny.webp" alt="" class="h-20">
+              <p id="temp" class="text-4xl font-bold ml-3"></p>
+            </div>
           </div>
-          <div class="weather-main-right">
-            <img id="weather-icon-main" src="../Icons/icon-sunny.webp" alt="Weather Icon" class="weather-icon-large">
-            <span id="temp" class="temperature-large">68°</span>
+          <p id="dats" class="text-lg mt-4"></p>
+        </div>
+
+        <!-- Weather details -->
+        <div class="row gy-3 gx-3 mt-3">
+          <div class="col-6 col-md-3 bg-gray-700 rounded-lg p-3">
+            <p class="text-sm">Feels like</p>
+            <p id="Feelslike" class="text-2xl font-semibold"></p>
+          </div>
+          <div class="col-6 col-md-3 bg-gray-700 rounded-lg p-3">
+            <p class="text-sm">Humidity</p>
+            <p id="Humidity" class="text-2xl font-semibold"></p>
+          </div>
+          <div class="col-6 col-md-3 bg-gray-700 rounded-lg p-3">
+            <p class="text-sm">Wind</p>
+            <p id="Wind" class="text-2xl font-semibold"></p>
+          </div>
+          <div class="col-6 col-md-3 bg-gray-700 rounded-lg p-3">
+            <p class="text-sm">Precipitation</p>
+            <p id="Precipitation" class="text-2xl font-semibold"></p>
           </div>
         </div>
 
-        <!-- Current Conditions -->
-        <div class="conditions-grid">
-          <div class="condition-card">
-            <p class="condition-label">Feels Like</p>
-            <p id="Feelslike" class="condition-value">64°</p>
+        <!-- Daily forecast -->
+        <p class="mt-4 font-semibold">Daily forecast</p>
+        <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-3">
+          <div class="bg-gray-700 rounded-lg p-2 text-center">
+            <p>Tue</p>
+            <img src="/Icons/icon-rain.webp" alt="" class="mx-auto h-8">
+            <p id="tue"></p>
           </div>
-          <div class="condition-card">
-            <p class="condition-label">Humidity</p>
-            <p id="Humidity" class="condition-value">46%</p>
+          <div class="bg-gray-700 rounded-lg p-2 text-center">
+            <p>Wed</p>
+            <img src="/Icons/icon-drizzle.webp" alt="" class="mx-auto h-8">
+            <p id="Wednes"></p>
           </div>
-          <div class="condition-card">
-            <p class="condition-label">Wind</p>
-            <p id="Wind" class="condition-value">9 mph</p>
+          <div class="bg-gray-700 rounded-lg p-2 text-center">
+            <p>Thu</p>
+            <img src="/Icons/icon-sunny.webp" alt="" class="mx-auto h-8">
+            <p id="tempf"></p>
           </div>
-          <div class="condition-card">
-            <p class="condition-label">Precipitation</p>
-            <p id="Precipitation" class="condition-value">0 in</p>
+          <div class="bg-gray-700 rounded-lg p-2 text-center">
+            <p>Fri</p>
+            <img src="/Icons/icon-partly-cloudy.webp" alt="" class="mx-auto h-8">
+            <p id="fr"></p>
           </div>
-        </div>
-
-        <!-- Daily Forecast -->
-        <div class="daily-forecast-section">
-          <h3 class="section-title">Daily forecast</h3>
-          <div class="daily-forecast-grid">
-            <div class="daily-card">
-              <p class="daily-day">Tue</p>
-              <img src="../Icons/icon-rain.webp" alt="Weather" class="daily-icon">
-              <p class="daily-temp">
-                <span class="temp-high">68°</span>
-                <span class="temp-low">57°</span>
-              </p>
-            </div>
-            <div class="daily-card">
-              <p class="daily-day">Wed</p>
-              <img src="../Icons/icon-rain.webp" alt="Weather" class="daily-icon">
-              <p class="daily-temp">
-                <span class="temp-high">70°</span>
-                <span class="temp-low">59°</span>
-              </p>
-            </div>
-            <div class="daily-card">
-              <p class="daily-day">Thu</p>
-              <img src="../Icons/icon-sunny.webp" alt="Weather" class="daily-icon">
-              <p class="daily-temp">
-                <span class="temp-high">75°</span>
-                <span class="temp-low">57°</span>
-              </p>
-            </div>
-            <div class="daily-card">
-              <p class="daily-day">Fri</p>
-              <img src="../Icons/icon-partly-cloudy.webp" alt="Weather" class="daily-icon">
-              <p class="daily-temp">
-                <span class="temp-high">77°</span>
-                <span class="temp-low">55°</span>
-              </p>
-            </div>
-            <div class="daily-card">
-              <p class="daily-day">Sat</p>
-              <img src="../Icons/icon-storm.webp" alt="Weather" class="daily-icon">
-              <p class="daily-temp">
-                <span class="temp-high">70°</span>
-                <span class="temp-low">59°</span>
-              </p>
-            </div>
-            <div class="daily-card">
-              <p class="daily-day">Sun</p>
-              <img src="../Icons/icon-partly-cloudy.webp" alt="Weather" class="daily-icon">
-              <p class="daily-temp">
-                <span class="temp-high">77°</span>
-                <span class="temp-low">61°</span>
-              </p>
-            </div>
-            <div class="daily-card">
-              <p class="daily-day">Mon</p>
-              <img src="../Icons/icon-fog.webp" alt="Weather" class="daily-icon">
-              <p class="daily-temp">
-                <span class="temp-high">75°</span>
-                <span class="temp-low">59°</span>
-              </p>
-            </div>
+          <div class="bg-gray-700 rounded-lg p-2 text-center">
+            <p>Sat</p>
+            <img src="/Icons/icon-storm.webp" alt="" class="mx-auto h-8">
+            <p id="sa"></p>
+          </div>
+          <div class="bg-gray-700 rounded-lg p-2 text-center">
+            <p>Sun</p>
+            <img src="/Icons/icon-snow.webp" alt="" class="mx-auto h-8">
+            <p id="windchill"></p>
+          </div>
+          <div class="bg-gray-700 rounded-lg p-2 text-center">
+            <p>Mon</p>
+            <img src="/Icons/icon-fog.webp" alt="" class="mx-auto h-8">
+            <p id="mon"></p>
           </div>
         </div>
       </div>
 
-      <!-- Right Column - Hourly Forecast -->
-      <div class="right-column">
-        <div class="hourly-header">
-          <h3 class="section-title">Hourly forecast</h3>
-          <button class="date-select-btn">
-            <span>Tuesday</span>
-            <img src="../Icons/icon-dropdown.svg" alt="Dropdown" class="dropdown-icon-small">
-          </button>
+      <!-- Right side (Hourly forecast) -->
+      <div class="col-12 col-lg-4 bg-gray-800 rounded-xl p-4">
+        <div class="flex justify-between items-center mb-4">
+          <p class="font-semibold">Hourly forecast</p>
+          <select class="bg-gray-700 px-2 py-1 rounded-md">
+            <option>Monday</option>
+            <option>Tuesday</option>
+            <option>Wednesday</option>
+            <option>Thursday</option>
+            <option>Friday</option>
+            <option>Saturday</option>
+            <option>Sunday</option>
+          </select>
         </div>
-        <div class="hourly-list">
-          <div class="hourly-item">
-            <div class="hourly-time-icon">
-              <img src="../Icons/icon-overcast.webp" alt="Weather" class="hourly-icon">
-              <span class="hourly-time">3 PM</span>
+
+        <div class="space-y-3">
+          <div class="bg-gray-700 p-2 rounded-md flex justify-between items-center">
+            <div class="flex items-center gap-2">
+              <img src="/Icons/icon-overcast.webp" class="h-8">
+              <p>3pm</p>
             </div>
-            <span id="3pm" class="hourly-temp">68°</span>
+            <p id="3pm"></p>
           </div>
-          <div class="hourly-item">
-            <div class="hourly-time-icon">
-              <img src="../Icons/icon-partly-cloudy.webp" alt="Weather" class="hourly-icon">
-              <span class="hourly-time">4 PM</span>
+          <div class="bg-gray-700 p-2 rounded-md flex justify-between items-center">
+            <div class="flex items-center gap-2">
+              <img src="/Icons/icon-partly-cloudy.webp" class="h-8">
+              <p>4pm</p>
             </div>
-            <span id="4pm" class="hourly-temp">68°</span>
+            <p id="4pm"></p>
           </div>
-          <div class="hourly-item">
-            <div class="hourly-time-icon">
-              <img src="../Icons/icon-sunny.webp" alt="Weather" class="hourly-icon">
-              <span class="hourly-time">5 PM</span>
+          <div class="bg-gray-700 p-2 rounded-md flex justify-between items-center">
+            <div class="flex items-center gap-2">
+              <img src="/Icons/icon-sunny.webp" class="h-8">
+              <p>5pm</p>
             </div>
-            <span id="5pm" class="hourly-temp">68°</span>
+            <p id="5pm"></p>
           </div>
-          <div class="hourly-item">
-            <div class="hourly-time-icon">
-              <img src="../Icons/icon-overcast.webp" alt="Weather" class="hourly-icon">
-              <span class="hourly-time">6 PM</span>
+          <div class="bg-gray-700 p-2 rounded-md flex justify-between items-center">
+            <div class="flex items-center gap-2">
+              <img src="/Icons/icon-overcast.webp" class="h-8">
+              <p>6pm</p>
             </div>
-            <span id="6pm" class="hourly-temp">66°</span>
+            <p id="6pm"></p>
           </div>
-          <div class="hourly-item">
-            <div class="hourly-time-icon">
-              <img src="../Icons/icon-rain.webp" alt="Weather" class="hourly-icon">
-              <span class="hourly-time">7 PM</span>
+          <div class="bg-gray-700 p-2 rounded-md flex justify-between items-center">
+            <div class="flex items-center gap-2">
+              <img src="/Icons/icon-snow.webp" class="h-8">
+              <p>7pm</p>
             </div>
-            <span id="7pm" class="hourly-temp">66°</span>
+            <p id="7pm"></p>
           </div>
-          <div class="hourly-item">
-            <div class="hourly-time-icon">
-              <img src="../Icons/icon-fog.webp" alt="Weather" class="hourly-icon">
-              <span class="hourly-time">8 PM</span>
+          <div class="bg-gray-700 p-2 rounded-md flex justify-between items-center">
+            <div class="flex items-center gap-2">
+              <img src="/Icons/icon-fog.webp" class="h-8">
+              <p>8pm</p>
             </div>
-            <span id="8pm" class="hourly-temp">64°</span>
+            <p id="8pm"></p>
           </div>
-          <div class="hourly-item">
-            <div class="hourly-time-icon">
-              <img src="../Icons/icon-overcast.webp" alt="Weather" class="hourly-icon">
-              <span class="hourly-time">9 PM</span>
+          <div class="bg-gray-700 p-2 rounded-md flex justify-between items-center">
+            <div class="flex items-center gap-2">
+              <img src="/Icons/icon-snow.webp" class="h-8">
+              <p>9pm</p>
             </div>
-            <span id="9pm" class="hourly-temp">63°</span>
+            <p id="9pm"></p>
           </div>
-          <div class="hourly-item">
-            <div class="hourly-time-icon">
-              <img src="../Icons/icon-overcast.webp" alt="Weather" class="hourly-icon">
-              <span class="hourly-time">10 PM</span>
+          <div class="bg-gray-700 p-2 rounded-md flex justify-between items-center">
+            <div class="flex items-center gap-2">
+              <img src="/Icons/icon-overcast.webp" class="h-8">
+              <p>10pm</p>
             </div>
-            <span id="10pm" class="hourly-temp">63°</span>
+            <p id="10pm"></p>
           </div>
         </div>
       </div>
     </div>
   </div>
 
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="script.js"></script>
 </body>
-
 </html>
