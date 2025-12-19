@@ -17,8 +17,8 @@ body {
 /* Container */
 .container {
     max-width: 1200px;
-    margin: 0px;
-    padding: 2rem;
+    margin: 0 auto;
+    padding: 2.5rem 2rem 3rem;
 }
 
 /* Header */
@@ -60,7 +60,7 @@ body {
 /* Main Title */
 .main-title {
     text-align: center;
-    font-size: 2.5rem;
+    font-size: 2.8rem;
     font-weight: 600;
     margin-bottom: 2rem;
     color: #FFFFFF; 

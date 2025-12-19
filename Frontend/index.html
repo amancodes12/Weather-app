@@ -2,12 +2,12 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Weather Now</title>
 
-  <!-- Custom styles to match the design -->
-  <link rel="stylesheet" href="../styles.css">
+  <!-- Main styles for the dashboard layout -->
+  <link rel="stylesheet" href="../styles.css" />
 </head>
 
 <body>
@@ -19,9 +19,9 @@
         <span>Weather Now</span>
       </div>
 
-      <button id="units-toggle" class="units-dropdown">
-        <img src="../Icons/icon-units.svg" alt="" style="width:16px;height:16px;margin-right:6px;vertical-align:-2px;">
-        <span id="units-label">Units: Metric (°C)</span>
+      <button class="units-dropdown">
+        <img src="../Icons/icon-units.svg" alt="" style="width:16px; margin-right:6px; vertical-align:middle;" />
+        Units
       </button>
     </header>
 
@@ -31,78 +31,200 @@
     <!-- Search -->
     <div class="search-container">
       <input
-        id="city-input"
         type="text"
+        id="city"
         class="search-input"
         placeholder="Search for a place..."
-        autocomplete="off"
       />
-      <button id="search-btn" class="search-btn">
+      <button id="Search" class="search-btn">
         Search
       </button>
     </div>
 
     <!-- Main content -->
-    <div class="content-grid">
+    <main class="content-grid">
       <!-- Left column -->
-      <div class="left-column">
+      <section class="left-column">
         <!-- Main weather card -->
-        <section class="weather-main">
+        <div class="weather-main">
           <div>
-            <div id="location" class="location">Loading...</div>
-            <div id="date" class="date"></div>
+            <p id="location" class="location">Loading...</p>
+            <p id="dats" class="date"></p>
           </div>
 
           <div class="weather-display">
-            <img id="weather-icon" class="weather-icon" src="../Icons/icon-sunny.webp" alt="Weather icon" />
-            <div id="temperature" class="temperature">--°</div>
+            <img src="../Icons/icon-sunny.webp" alt="Weather icon" class="weather-icon" />
+            <span id="temp" class="temperature">--°</span>
           </div>
-        </section>
+        </div>
 
-        <!-- Stats cards -->
-        <section class="wind-container">
+        <!-- Details cards -->
+        <div class="wind-container">
           <div class="wind-card">
-            <div class="wind-label">Feels like</div>
-            <div id="feels-like" class="wind-value">--</div>
+            <p class="wind-label">Feels like</p>
+            <p id="Feelslike" class="wind-value">--</p>
           </div>
           <div class="wind-card">
-            <div class="wind-label">Humidity</div>
-            <div id="humidity" class="wind-value">--</div>
+            <p class="wind-label">Humidity</p>
+            <p id="Humidity" class="wind-value">--</p>
           </div>
           <div class="wind-card">
-            <div class="wind-label">Wind</div>
-            <div id="wind" class="wind-value">--</div>
+            <p class="wind-label">Wind</p>
+            <p id="Wind" class="wind-value">--</p>
           </div>
           <div class="wind-card">
-            <div class="wind-label">Precipitation</div>
-            <div id="precipitation" class="wind-value">--</div>
+            <p class="wind-label">Precipitation</p>
+            <p id="Precipitation" class="wind-value">--</p>
           </div>
-        </section>
+        </div>
 
         <!-- Daily forecast -->
         <section class="daily-forecast">
-          <div class="section-title">Daily forecast</div>
-          <div id="daily-forecast" class="forecast-grid">
-            <!-- Filled by JavaScript -->
+          <p class="section-title">Daily forecast</p>
+
+          <div class="forecast-grid">
+            <!-- Tue -->
+            <div class="forecast-card">
+              <p class="forecast-day">Tue</p>
+              <img src="../Icons/icon-rain.webp" alt="" class="forecast-icon" />
+              <p class="forecast-temp">
+                <span id="tue" class="high">--°</span>
+                <span id="te" class="low">--°</span>
+              </p>
+            </div>
+
+            <!-- Wed -->
+            <div class="forecast-card">
+              <p class="forecast-day">Wed</p>
+              <img src="../Icons/icon-drizzle.webp" alt="" class="forecast-icon" />
+              <p class="forecast-temp">
+                <span id="Wednes" class="high">--°</span>
+                <span id="Wed" class="low">--°</span>
+              </p>
+            </div>
+
+            <!-- Thu -->
+            <div class="forecast-card">
+              <p class="forecast-day">Thu</p>
+              <img src="../Icons/icon-sunny.webp" alt="" class="forecast-icon" />
+              <p class="forecast-temp">
+                <span id="tempf" class="high">--°</span>
+                <span id="temp-l" class="low">--°</span>
+              </p>
+            </div>
+
+            <!-- Fri -->
+            <div class="forecast-card">
+              <p class="forecast-day">Fri</p>
+              <img src="../Icons/icon-partly-cloudy.webp" alt="" class="forecast-icon" />
+              <p class="forecast-temp">
+                <span id="fr" class="high">--°</span>
+                <span id="fri" class="low">--°</span>
+              </p>
+            </div>
+
+            <!-- Sat -->
+            <div class="forecast-card">
+              <p class="forecast-day">Sat</p>
+              <img src="../Icons/icon-storm.webp" alt="" class="forecast-icon" />
+              <p class="forecast-temp">
+                <span id="sa" class="high">--°</span>
+                <span id="sat" class="low">--°</span>
+              </p>
+            </div>
+
+            <!-- Sun -->
+            <div class="forecast-card">
+              <p class="forecast-day">Sun</p>
+              <img src="../Icons/icon-snow.webp" alt="" class="forecast-icon" />
+              <p class="forecast-temp">
+                <span id="windchill" class="high">--°</span>
+                <span id="windchill_c" class="low">--°</span>
+              </p>
+            </div>
+
+            <!-- Mon -->
+            <div class="forecast-card">
+              <p class="forecast-day">Mon</p>
+              <img src="../Icons/icon-fog.webp" alt="" class="forecast-icon" />
+              <p class="forecast-temp">
+                <span id="mon" class="high">--°</span>
+                <span id="Monday" class="low">--°</span>
+              </p>
+            </div>
           </div>
         </section>
-      </div>
+      </section>
 
       <!-- Right column: hourly forecast -->
       <aside class="hourly-forecast">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.75rem;">
-          <div class="section-title" style="margin:0;">Hourly forecast</div>
-          <select id="day-select" class="units-dropdown" style="padding:0.35rem 0.75rem;">
-            <!-- Filled by JavaScript (Today, Tomorrow, etc.) -->
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem;">
+          <p class="section-title" style="margin-bottom:0;">Hourly forecast</p>
+          <select class="units-dropdown" style="padding:0.35rem 0.8rem;">
+            <option>Tuesday</option>
+            <option>Monday</option>
+            <option>Wednesday</option>
+            <option>Thursday</option>
+            <option>Friday</option>
+            <option>Saturday</option>
+            <option>Sunday</option>
           </select>
         </div>
-        <div id="hourly-list">
-          <!-- Filled by JavaScript -->
+
+        <div>
+          <div class="hourly-item">
+            <span class="hourly-time">3 PM</span>
+            <img src="../Icons/icon-overcast.webp" alt="" class="hourly-icon" />
+            <span id="3pm" class="hourly-temp">--°</span>
+          </div>
+
+          <div class="hourly-item">
+            <span class="hourly-time">4 PM</span>
+            <img src="../Icons/icon-partly-cloudy.webp" alt="" class="hourly-icon" />
+            <span id="4pm" class="hourly-temp">--°</span>
+          </div>
+
+          <div class="hourly-item">
+            <span class="hourly-time">5 PM</span>
+            <img src="../Icons/icon-sunny.webp" alt="" class="hourly-icon" />
+            <span id="5pm" class="hourly-temp">--°</span>
+          </div>
+
+          <div class="hourly-item">
+            <span class="hourly-time">6 PM</span>
+            <img src="../Icons/icon-overcast.webp" alt="" class="hourly-icon" />
+            <span id="6pm" class="hourly-temp">--°</span>
+          </div>
+
+          <div class="hourly-item">
+            <span class="hourly-time">7 PM</span>
+            <img src="../Icons/icon-snow.webp" alt="" class="hourly-icon" />
+            <span id="7pm" class="hourly-temp">--°</span>
+          </div>
+
+          <div class="hourly-item">
+            <span class="hourly-time">8 PM</span>
+            <img src="../Icons/icon-fog.webp" alt="" class="hourly-icon" />
+            <span id="8pm" class="hourly-temp">--°</span>
+          </div>
+
+          <div class="hourly-item">
+            <span class="hourly-time">9 PM</span>
+            <img src="../Icons/icon-snow.webp" alt="" class="hourly-icon" />
+            <span id="9pm" class="hourly-temp">--°</span>
+          </div>
+
+          <div class="hourly-item">
+            <span class="hourly-time">10 PM</span>
+            <img src="../Icons/icon-overcast.webp" alt="" class="hourly-icon" />
+            <span id="10pm" class="hourly-temp">--°</span>
+          </div>
         </div>
       </aside>
-    </div>
+    </main>
   </div>
 
   <script src="script.js"></script>
 </body>
+
 </html>
