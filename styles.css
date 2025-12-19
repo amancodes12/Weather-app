@@ -111,7 +111,7 @@ body {
 
 /* Main Weather Card */
 .weather-main {
-    background-image:url('bg-today-large.svg');
+    background-image:url('./Icons/bg-today-large.svg');
     background-size: cover;
     border-radius: 20px;
     padding: 2rem;
