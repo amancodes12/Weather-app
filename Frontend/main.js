@@ -1,44 +1,41 @@
- // 🌍 Auto Detect Location on Page Load
+// 🌍 Auto Detect Location on Page Load
 window.addEventListener("load", () => {
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(async (position) => {
-            let lat = position.coords.latitude;
-            let lon = position.coords.longitude;
-
-            console.log("Your location:", lat, lon);
-
-            // Fetch weather using lat & lon
-            getWeatherByCoords(lat, lon);
-        });
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                const lat = position.coords.latitude;
+                const lon = position.coords.longitude;
+                getWeatherByCoords(lat, lon);
+            },
+            () => {
+                alert("Location permission denied");
+            }
+        );
     } else {
-        alert("Geolocation is not supported by this browser.");
+        alert("Geolocation not supported");
     }
 });
 
 
 // 🔍 Weather by City Search
-document.getElementById("Search").addEventListener("click", async () => {
-    let city = document.getElementById("city").value.trim();
-
+document.getElementById("Search").addEventListener("click", () => {
+    const city = document.getElementById("city").value.trim();
     if (!city) {
         alert("Enter city name");
         return;
     }
-
     getWeatherByCity(city);
 });
 
 
-
 // --------------------------------------------
-// 🌦 FUNCTIONS
+// 🌦 API CALLS (BACKEND ONLY)
 // --------------------------------------------
 
-// ✔ Get Weather by City Name
 async function getWeatherByCity(city) {
     try {
-        let response = await fetch(
-            `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=4cd901f667dbd1d3fc3792b0f764a584&units=metric`
+        const response = await fetch(
+            `http://127.0.0.1:5000/weather/city?city=${city}`
         );
 
         if (!response.ok) {
@@ -46,47 +43,42 @@ async function getWeatherByCity(city) {
             return;
         }
 
-        let data = await response.json();
+        const data = await response.json();
         updateUI(data);
 
     } catch (error) {
-        console.error("Error fetching weather:", error);
+        console.error("Error fetching city weather:", error);
     }
 }
 
-
-
-// ✔ Get Weather using Latitude + Longitude
 async function getWeatherByCoords(lat, lon) {
     try {
-        let response = await fetch(
-            `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=4cd901f667dbd1d3fc3792b0f764a584&units=metric`
+        const response = await fetch(
+            `http://127.0.0.1:5000/weather/coords?lat=${lat}&lon=${lon}`
         );
 
-        let data = await response.json();
+        const data = await response.json();
         updateUI(data);
 
     } catch (error) {
-        console.error("Error fetching weather:", error);
+        console.error("Error fetching location weather:", error);
     }
 }
-
 
 
 // --------------------------------------------
-// 🎨 Update UI (Common Function)
+// 🎨 UPDATE UI
 // --------------------------------------------
 
 function updateUI(data) {
 
-    let location = data.name;
-    let humidity = data.main.humidity;
-    let feelslike = Math.round(data.main.feels_like);
-    let temp = Math.round(data.main.temp);
-    let wind = data.wind.speed;
-    let precip = data.rain ? data.rain["1h"] : 0;
+    const location = data.name;
+    const humidity = data.main.humidity;
+    const feelslike = Math.round(data.main.feels_like);
+    const temp = Math.round(data.main.temp);
+    const wind = data.wind.speed;
+    const precip = data.rain ? data.rain["1h"] : 0;
 
-    // ✔ Update Values
     document.getElementById("location").innerHTML = location;
     document.getElementById("Feelslike").innerHTML = feelslike + "°";
     document.getElementById("Humidity").innerHTML = humidity + "%";
@@ -94,7 +86,7 @@ function updateUI(data) {
     document.getElementById("Wind").innerHTML = wind + " km/h";
     document.getElementById("Precipitation").innerHTML = precip + " mm";
 
-    // Daily & hourly dummy values (you can replace later)
+    // Dummy values (replace later with forecast API)
     document.getElementById("windchill").innerHTML = feelslike + "°";
     document.getElementById("windchill_c").innerHTML = feelslike + "°";
     document.getElementById("tempf").innerHTML = temp + "°";
@@ -110,7 +102,7 @@ function updateUI(data) {
     document.getElementById("sa").innerHTML = feelslike + "°";
     document.getElementById("sat").innerHTML = wind + "°";
 
-    // Hourly
+    // Hourly placeholders
     document.getElementById("3pm").innerHTML = temp + "°";
     document.getElementById("4pm").innerHTML = temp + "°";
     document.getElementById("5pm").innerHTML = temp + "°";
@@ -120,8 +112,7 @@ function updateUI(data) {
     document.getElementById("9pm").innerHTML = feelslike + "°";
     document.getElementById("10pm").innerHTML = humidity + "°";
 
-    // ✔ Correct Date
-    let now = new Date();
-    let fullDate = now.toDateString();  // Example: "Mon Nov 28 2025"
-    document.getElementById("dats").innerHTML = fullDate;
+    // Date
+    const now = new Date();
+    document.getElementById("dats").innerHTML = now.toDateString();
 }
