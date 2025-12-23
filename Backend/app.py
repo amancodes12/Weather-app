@@ -11,8 +11,8 @@ app = Flask(__name__)
 CORS(app)
 
 API_KEY = os.getenv("OPENWEATHER_API_KEY")
-BASE_URL = "https://api.openweathermap.org/data/2.5/weather"
-
+CURRENT_URL = "https://api.openweathermap.org/data/2.5/weather"
+ONECALL_URL = "https://api.openweathermap.org/data/3.0/onecall"
 
 @app.route("/weather/city", methods=["GET"])
 def weather_by_city():
@@ -27,7 +27,7 @@ def weather_by_city():
         "units": "metric"
     }
 
-    response = requests.get(BASE_URL, params=params)
+    response = requests.get(CURRENT_URL, params=params)
     return jsonify(response.json()), response.status_code
 
 
@@ -46,7 +46,7 @@ def weather_by_coords():
         "units": "metric"
     }
 
-    response = requests.get(BASE_URL, params=params)
+    response = requests.get(ONECALL_URL, params=params)
     return jsonify(response.json()), response.status_code
 
 
