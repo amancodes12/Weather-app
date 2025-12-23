@@ -39,15 +39,29 @@ def weather_by_coords():
     if not lat or not lon:
         return jsonify({"error": "Latitude and Longitude are required"}), 400
 
-    params = {
+    # 1. Current weather (for UI header)
+    current_params = {
         "lat": lat,
         "lon": lon,
         "appid": API_KEY,
         "units": "metric"
     }
+    current_res = requests.get(CURRENT_URL, params=current_params).json()
 
-    response = requests.get(ONECALL_URL, params=params)
-    return jsonify(response.json()), response.status_code
+    # 2. Forecast (for precipitation + weekdays)
+    forecast_params = {
+        "lat": lat,
+        "lon": lon,
+        "appid": API_KEY,
+        "units": "metric",
+        "exclude": "minutely,hourly,alerts"
+    }
+    forecast_res = requests.get(ONECALL_URL, params=forecast_params).json()
+
+    return jsonify({
+        "current": current_res,
+        "forecast": forecast_res
+    })
 
 
 if __name__ == "__main__":
